@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Locations</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <h1>All Locations</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="all.html">View All</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="grid" id="org-list">
+      </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const container = document.getElementById('org-list');
+    
+    // Loop through our data and create a card for each
+    orgData.forEach(org => {
+      container.innerHTML += `
+        <div class="card">
+          <h2>${org.name}</h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">${org.city}, ${org.country}</p>
+          <div class="img-placeholder">Image</div>
+          <div class="card-actions">
+            <a href="org.html?id=${org.id}" class="btn btn-secondary" style="flex: 1; text-align: center;">Learn More</a>
+            <a href="${org.stripe}" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center;">Donate Now</a>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
