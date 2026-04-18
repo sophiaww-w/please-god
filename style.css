@@ -1,24 +1,76 @@
-/* style.css - Update the Tooltip Section */
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
+:root {
+  --bg-color: #080C16;      /* Mysterious Dark Blue */
+  --nav-bg: #0B101D;
+  --card-bg: #12182B;
+  --text-main: #FFFFFF;
+  --text-muted: #A0ABC0;
+  --accent-blue: #3b82f6;   /* The Fundraising Blue */
+  --accent-glow: rgba(59, 130, 150, 0.4);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- NAVIGATION --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+nav h1 { 
+  margin: 0; 
+  font-size: 22px; 
+  font-weight: 800; 
+  letter-spacing: -0.5px; 
+}
+
+nav div a {
+  color: var(--text-main);
+  text-decoration: none;
+  margin-left: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+nav div a:hover { color: var(--accent-blue); }
+
+/* --- THE WHITE HOVER BOX (The "Vision" Fix) --- */
 .scene-tooltip {
-  background-color: white !important;
-  color: black !important;
-  padding: 18px 25px !important;
+  /* Force White Background */
+  background: #ffffff !important; 
+  background-color: #ffffff !important;
+  
+  /* Force Black Text & Layout */
+  color: #000000 !important;
+  padding: 20px 25px !important;
   border-radius: 12px !important;
   text-align: center !important;
-  font-family: 'Inter', sans-serif !important;
+  
+  /* Professional Depth Shadow */
   box-shadow: 0 15px 45px rgba(0,0,0,0.6) !important;
   border: none !important;
   
-  /* PERFECT CENTERING */
-  /* -50% centers it horizontally, -120% pushes it safely above the dot */
+  /* Perfect Centering Above the Dot */
   transform: translate(-50%, -120%) !important; 
-  
+  z-index: 9999 !important;
   pointer-events: none;
-  min-width: 180px;
-  z-index: 9999 !important; /* Ensures it stays above the globe at the edges */
+  min-width: 190px;
   
-  /* Smooth fade-in effect */
+  /* Fade-in Animation */
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -27,30 +79,111 @@
   to { opacity: 1; transform: translate(-50%, -120%); }
 }
 
+/* Ensure all text inside the tooltip follows your colors */
 .tooltip-title { 
   font-weight: 800; 
-  font-size: 16px; 
-  margin: 0 0 2px 0;
-  color: #000 !important;
-  line-height: 1.2;
+  font-size: 17px; 
+  margin: 0 0 4px 0 !important;
+  color: #000000 !important;
+  display: block;
 }
 
 .tooltip-location { 
   font-size: 13px; 
-  color: #666 !important; 
-  margin-bottom: 12px;
+  color: #666666 !important; 
+  margin-bottom: 12px !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: block;
 }
 
 .tooltip-percent { 
   font-weight: 800; 
-  color: #3b82f6 !important; /* Vibrant Blue */
+  color: var(--accent-blue) !important; 
   font-size: 12px;
   letter-spacing: 1px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #eeeeee;
   padding-top: 10px;
+  display: block;
 }
 
-/* Safety: hide default labels */
+/* Hide library's default black labels */
 .globe-label { display: none !important; }
+
+/* --- BUTTONS & INTERFACE --- */
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-block;
+  transition: 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: white;
+  box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+.btn-secondary {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* --- PAGES & LAYOUT --- */
+.container { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 40px 20px; 
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.img-placeholder {
+  width: 100%; 
+  background-color: #1A2235;
+  border-radius: 12px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* --- PROGRESS BAR (For Org Page) --- */
+.progress-container {
+  width: 100%; 
+  height: 12px; 
+  background: #1A2235; 
+  border-radius: 6px; 
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%; 
+  background: var(--accent-blue); 
+  border-radius: 6px;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
