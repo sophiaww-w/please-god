@@ -5,7 +5,7 @@ const world = Globe()
   (document.getElementById('globeViz'))
   .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
   .backgroundColor('#080C16')
-  .pointOfView({ altitude: 2.5 })
+  .pointOfView({ altitude: 0.25 })
   
   // This creates the pulsing outer ring
   .ringsData(orgData)
