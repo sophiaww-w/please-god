@@ -1,17 +1,17 @@
+
 /* style.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 :root {
-  --bg-color: #080C16;
+  --bg-color: #080C16; /* Very dark, mysterious blue */
   --nav-bg: #0B101D;
   --card-bg: #12182B;
   --text-main: #FFFFFF;
   --text-muted: #A0ABC0;
   --accent-blue: #3b82f6;
-  --accent-glow: rgba(59, 130, 246, 0.4);
+  --accent-glow: rgba(59, 130, 246, 0.5);
+  --dot-color: #ff3366;
 }
-
-* { box-sizing: border-box; } /* Prevents layout "mess ups" */
 
 body {
   margin: 0;
@@ -19,110 +19,119 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: 'Inter', sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* --- NAVIGATION (Header stays at the top) --- */
+/* Navigation */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 50px;
-  height: 80px; /* Fixed height so it doesn't move */
+  padding: 20px 50px;
   background-color: var(--nav-bg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100%;
-  position: relative;
-  z-index: 100; /* Stays above the globe */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-nav h1 { font-size: 20px; font-weight: 800; margin: 0; }
-
-nav .nav-links a {
+nav h1 { margin: 0; font-size: 24px; font-weight: 800; }
+nav div a {
   color: var(--text-main);
   text-decoration: none;
-  margin-left: 25px;
+  margin-left: 30px;
   font-weight: 600;
-  font-size: 14px;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
-nav .nav-links a:hover { color: var(--accent-blue); }
+nav div a:hover { color: var(--accent-blue); }
 
-/* --- GLOBE CONTAINER --- */
-#globeViz {
-  flex-grow: 1; /* Takes up the remaining screen space */
-  width: 100%;
-  height: calc(100vh - 80px);
-  background-color: var(--bg-color);
+/* Buttons */
+.btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
 }
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: white;
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+.btn-primary:hover {
+  background-color: #2563eb;
+  box-shadow: 0 0 25px var(--accent-glow);
+}
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+.btn-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
 
-/* --- THE WHITE HOVER BOX (Fixed) --- */
+/* Globe Tooltip (The White Box) */
 .scene-tooltip {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  padding: 20px !important;
-  border-radius: 12px !important;
+  background-color: white !important;
+  color: black !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
   text-align: center !important;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
-  transform: translate(-50%, -125%) !important;
-  min-width: 180px;
+  font-family: 'Inter', sans-serif !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+  transform: translate(-50%, -120%) !important; /* Centers it perfectly ABOVE the dot */
   pointer-events: none;
-  z-index: 9999 !important;
 }
+.tooltip-title { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+.tooltip-location { font-size: 12px; color: #555; }
 
-.tooltip-title { 
-  font-weight: 800; font-size: 16px; display: block; 
-  color: #000000 !important; margin-bottom: 4px;
-}
-.tooltip-location { 
-  font-size: 12px; color: #666 !important; display: block; 
-  text-transform: uppercase; margin-bottom: 10px;
-}
-.tooltip-percent { 
-  color: var(--accent-blue) !important; font-weight: 800; 
-  font-size: 12px; border-top: 1px solid #eee; padding-top: 8px; display: block;
-}
+/* Layout Containers */
+.container { max-width: 1200px; margin: 0 auto; padding: 50px 20px; }
+.header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
 
-/* Hide library clutter */
-.globe-label { display: none !important; }
-
-/* --- CONTENT PAGES (All / Org Page) --- */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 50px 20px;
+/* Grid for "All" Page */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
 }
-
 .card {
   background-color: var(--card-bg);
   border-radius: 16px;
-  padding: 30px;
-  border: 1px solid rgba(255,255,255,0.05);
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
-
-.btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 700;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-}
-.btn-primary { background: var(--accent-blue); color: white; }
-.btn-secondary { background: rgba(255,255,255,0.1); color: white; }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-}
-
 .img-placeholder {
-  width: 100%; height: 200px; background: #1A2235;
-  border-radius: 10px; margin-bottom: 15px;
-  display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+  width: 100%; height: 200px;
+  background-color: #1A2235;
+  border-radius: 12px;
+  display: flex; justify-content: center; align-items: center;
+  color: var(--text-muted);
+  margin-bottom: 20px;
 }
+.card-actions { display: flex; gap: 15px; margin-top: 20px; }
+
+/* Organization Page Progress Bar */
+.progress-container {
+  width: 100%; background-color: #1A2235; border-radius: 10px; margin: 20px 0; height: 12px; overflow: hidden;
+}
+.progress-bar {
+  height: 100%; background-color: var(--accent-blue);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* style.css additions */
+
+.tooltip-stats {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  color: #333;
+}
+
+.tooltip-percent {
+  color: #3b82f6; /* Lighter blue for the percentage */
+  font-weight: 800;
+  margin-top: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
