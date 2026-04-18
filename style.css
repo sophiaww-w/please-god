@@ -2,14 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 :root {
-  --bg-color: #080C16;      /* Mysterious Dark Blue */
+  --bg-color: #080C16;
   --nav-bg: #0B101D;
   --card-bg: #12182B;
   --text-main: #FFFFFF;
   --text-muted: #A0ABC0;
-  --accent-blue: #3b82f6;   /* The Fundraising Blue */
-  --accent-glow: rgba(59, 130, 150, 0.4);
+  --accent-blue: #3b82f6;
+  --accent-glow: rgba(59, 130, 246, 0.4);
 }
+
+* { box-sizing: border-box; } /* Prevents layout "mess ups" */
 
 body {
   margin: 0;
@@ -17,173 +19,110 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* --- NAVIGATION --- */
+/* --- NAVIGATION (Header stays at the top) --- */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 0 50px;
+  height: 80px; /* Fixed height so it doesn't move */
   background-color: var(--nav-bg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  position: relative;
+  z-index: 100; /* Stays above the globe */
 }
 
-nav h1 { 
-  margin: 0; 
-  font-size: 22px; 
-  font-weight: 800; 
-  letter-spacing: -0.5px; 
-}
+nav h1 { font-size: 20px; font-weight: 800; margin: 0; }
 
-nav div a {
+nav .nav-links a {
   color: var(--text-main);
   text-decoration: none;
-  margin-left: 30px;
+  margin-left: 25px;
   font-weight: 600;
   font-size: 14px;
   transition: 0.3s;
 }
+nav .nav-links a:hover { color: var(--accent-blue); }
 
-nav div a:hover { color: var(--accent-blue); }
+/* --- GLOBE CONTAINER --- */
+#globeViz {
+  flex-grow: 1; /* Takes up the remaining screen space */
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-color: var(--bg-color);
+}
 
-/* --- THE WHITE HOVER BOX (The "Vision" Fix) --- */
+/* --- THE WHITE HOVER BOX (Fixed) --- */
 .scene-tooltip {
-  /* Force White Background */
-  background: #ffffff !important; 
+  background: #ffffff !important;
   background-color: #ffffff !important;
-  
-  /* Force Black Text & Layout */
   color: #000000 !important;
-  padding: 20px 25px !important;
+  padding: 20px !important;
   border-radius: 12px !important;
   text-align: center !important;
-  
-  /* Professional Depth Shadow */
-  box-shadow: 0 15px 45px rgba(0,0,0,0.6) !important;
-  border: none !important;
-  
-  /* Perfect Centering Above the Dot */
-  transform: translate(-50%, -120%) !important; 
-  z-index: 9999 !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+  transform: translate(-50%, -125%) !important;
+  min-width: 180px;
   pointer-events: none;
-  min-width: 190px;
-  
-  /* Fade-in Animation */
-  animation: fadeIn 0.2s ease-out;
+  z-index: 9999 !important;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, -110%); }
-  to { opacity: 1; transform: translate(-50%, -120%); }
-}
-
-/* Ensure all text inside the tooltip follows your colors */
 .tooltip-title { 
-  font-weight: 800; 
-  font-size: 17px; 
-  margin: 0 0 4px 0 !important;
-  color: #000000 !important;
-  display: block;
+  font-weight: 800; font-size: 16px; display: block; 
+  color: #000000 !important; margin-bottom: 4px;
 }
-
 .tooltip-location { 
-  font-size: 13px; 
-  color: #666666 !important; 
-  margin-bottom: 12px !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: block;
+  font-size: 12px; color: #666 !important; display: block; 
+  text-transform: uppercase; margin-bottom: 10px;
 }
-
 .tooltip-percent { 
-  font-weight: 800; 
-  color: var(--accent-blue) !important; 
-  font-size: 12px;
-  letter-spacing: 1px;
-  border-top: 1px solid #eeeeee;
-  padding-top: 10px;
-  display: block;
+  color: var(--accent-blue) !important; font-weight: 800; 
+  font-size: 12px; border-top: 1px solid #eee; padding-top: 8px; display: block;
 }
 
-/* Hide library's default black labels */
+/* Hide library clutter */
 .globe-label { display: none !important; }
 
-/* --- BUTTONS & INTERFACE --- */
+/* --- CONTENT PAGES (All / Org Page) --- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
 .btn {
   padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 700;
   display: inline-block;
-  transition: 0.3s;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
 }
-
-.btn-primary {
-  background-color: var(--accent-blue);
-  color: white;
-  box-shadow: 0 5px 15px var(--accent-glow);
-}
-
-.btn-secondary {
-  background-color: rgba(255,255,255,0.1);
-  color: white;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
-}
-
-/* --- PAGES & LAYOUT --- */
-.container { 
-  max-width: 1100px; 
-  margin: 0 auto; 
-  padding: 40px 20px; 
-}
-
-.card {
-  background-color: var(--card-bg);
-  border-radius: 20px;
-  padding: 30px;
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+.btn-primary { background: var(--accent-blue); color: white; }
+.btn-secondary { background: rgba(255,255,255,0.1); color: white; }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
+  gap: 30px;
 }
 
 .img-placeholder {
-  width: 100%; 
-  background-color: #1A2235;
-  border-radius: 12px;
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-/* --- PROGRESS BAR (For Org Page) --- */
-.progress-container {
-  width: 100%; 
-  height: 12px; 
-  background: #1A2235; 
-  border-radius: 6px; 
-  margin: 15px 0;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%; 
-  background: var(--accent-blue); 
-  border-radius: 6px;
-  box-shadow: 0 0 10px var(--accent-glow);
+  width: 100%; height: 200px; background: #1A2235;
+  border-radius: 10px; margin-bottom: 15px;
+  display: flex; align-items: center; justify-content: center; color: var(--text-muted);
 }
