@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Organization Detail</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <h1 id="page-title">Loading...</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="all.html">View All</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="javascript:history.back()" class="btn btn-secondary" style="margin-bottom: 30px; display: inline-block;">← Go Back</a>
+    
+    <div id="org-content" class="card" style="padding: 40px;">
+      </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    // 1. Get the ID from the website URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const orgId = urlParams.get('id');
+
+    // 2. Find the organization in data.js
+    const org = orgData.find(o => o.id === orgId);
+
+    if (org) {
+      document.getElementById('page-title').innerText = org.name;
+      
+      // Calculate progress percentage
+      const percentDone = Math.min(100, (org.raised / org.goal) * 100);
+
+      // Inject HTML
+      document.getElementById('org-content').innerHTML = `
+        <div class="header-flex">
+          <div>
+            <h1 style="font-size: 36px; margin: 0 0 10px 0;">${org.name}</h1>
+            <h3 style="color: var(--text-muted); margin: 0;">${org.city}, ${org.country}</h3>
+          </div>
+          <a href="${org.stripe}" target="_blank" class="btn btn-primary" style="font-size: 18px; padding: 15px 30px;">Donate Now</a>
+        </div>
+
+        <div class="img-placeholder" style="height: 400px; font-size: 24px;">Large Featured Image</div>
+
+        <h2 style="margin-top: 30px;">About Our Mission</h2>
+        <p style="line-height: 1.8; color: #D1D5DB;">${org.description}</p>
+
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <h3>Fundraising Goal: $${org.goal.toLocaleString()}</h3>
+          <div class="progress-container">
+            <div class="progress-bar" style="width: ${percentDone}%;"></div>
+          </div>
+          <p style="text-align: right; color: var(--text-muted);">$${org.raised.toLocaleString()} raised so far</p>
+        </div>
+      `;
+    } else {
+      document.getElementById('org-content').innerHTML = "<h1>Organization not found.</h1>";
+    }
+  </script>
+</body>
+</html>
