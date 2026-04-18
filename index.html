@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Fundraisers</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/three"></script>
+  <script src="https://unpkg.com/globe.gl"></script>
+  <style>
+    #globeViz { width: 100vw; height: calc(100vh - 75px); cursor: grab; }
+    #globeViz:active { cursor: grabbing; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Fundraising Organization</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="all.html">View All</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <div id="globeViz"></div>
+
+  <script src="data.js"></script>
+  <script src="globe.js"></script>
+
+</body>
+</html>
