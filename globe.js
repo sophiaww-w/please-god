@@ -10,7 +10,7 @@ const world = Globe()
   .ringsData(orgData)
   .ringColor(() => '#ff3366')
   .ringMaxRadius(3.5)
-  .ringPropagationSpeed(2.5)
+  .ringPropagationSpeed(1.5)
   .ringRepeatPeriod(800)
 
   // 2. The Solid Center Layer (Points)
